@@ -3,7 +3,7 @@
         1. Integers, (Whole Number: 1, 100, 12039, 12409)
         2. Floating-Point Numbers, (Decimals: 1.23012, 0.0123, 12312.1203)
         3. Booleans, (?: True or False)
-        4. Characters, (Single Letters (1 bit in memory): a, b, z, e)
+        4. Characters, (Chars, Strings: a, b, z, e || Hello, World)
 
     Integers: (u/i)*bitsize* eg i32 = signed 32bit
         signed = neg => pos, unsigned = 0 => pos
@@ -33,16 +33,29 @@
         \* = multiplication
         / = division
         % = remainder
+    Character Type:
+        '' = Single Char 😻, ℤ, z
+        "" = String (aka Char Array) Hello, World, This is a sentence.
+        Rust's Char type is four bytes in size for Unicode Scalar Value.
+            - This mean it can do more than just ASCII, Chinese, Japanese, Emoji, and more.
+    Compount Types:
+        Tuple:
+            General way of grouping a number of values, Fixed length can't grow or shrink in size.
 */
 fn main() {
     let guess: u32 = "42".parse().expect("Not a number!");
     println!("{}", guess);
 
-    //Floats
-    let floatingDefault = 2.0; // Typeof = f64 chosen by default
-    let floatingAssigned: f32 = 2.0; // Typeof = f32 chosen by myself, marginally slightly faster, not worth
+    // Floats
+    let _floating_default = 2.0; // Typeof = f64 chosen by default
+    let _floating_assigned: f32 = 2.0; // Typeof = f32 chosen by myself, marginally slightly faster, not worth
 
-    //Bools
-    let boolTrue = true; // Recognized of type bool
-    let boolFalse: bool = false; // explicit type declaration
+    // Bools
+    let _bool_true = true; // Recognized of type bool
+    let _bool_false: bool = false; // explicit type declaration
+
+    // Tuple
+    let tuple_example: (i32, f64, u8) = (-500, 6.4, 1);
+    let (tuple_x, tuple_y, tuple_z) = tuple_example;
+    println!("x: {}, y: {}, z:{}", tuple_x, tuple_y, tuple_z);
 }
