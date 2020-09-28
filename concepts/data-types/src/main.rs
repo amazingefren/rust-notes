@@ -38,9 +38,13 @@
         "" = String (aka Char Array) Hello, World, This is a sentence.
         Rust's Char type is four bytes in size for Unicode Scalar Value.
             - This mean it can do more than just ASCII, Chinese, Japanese, Emoji, and more.
-    Compount Types:
+    Component Types:
         Tuple:
             General way of grouping a number of values, Fixed length can't grow or shrink in size.
+        Array:
+            !Important: Fixed Length
+            Good for storing data in array with fixed length. Stored on stack not heap
+            Must have consistent type across its dec. cannot mix types.
 */
 fn main() {
     let guess: u32 = "42".parse().expect("Not a number!");
@@ -58,4 +62,18 @@ fn main() {
     let tuple_example: (i32, f64, u8) = (-500, 6.4, 1);
     let (tuple_x, tuple_y, tuple_z) = tuple_example;
     println!("x: {}, y: {}, z:{}", tuple_x, tuple_y, tuple_z);
+    println!(
+        "x: {}, y: {}, z:{}",
+        tuple_example.0, tuple_example.1, tuple_example.2
+    );
+
+    // Array
+    let _months_array = [
+        "jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec",
+    ];
+    let _number_array: [u32; 5] = [1, 2, 3, 4, 5]; //type u32, 5 elements
+    let _auto_array: [u8; 5] = [10; 5]; //[10,10,10,10,10]
+    println!("months array length: {}", _months_array.len());
+    println!("last number in array: {}", _number_array[4]);
+    // println!("THIS WILL BREAK DELETE TO RUN: {}", _number_array[8]); // produces error: this operation will panic at runtime, Rust does these safety checks
 }
