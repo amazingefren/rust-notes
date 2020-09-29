@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 enum IpAddrKind {
     V4(u8, u8, u8, u8),
     V6(String),
@@ -38,17 +39,17 @@ impl Message {
 }
 
 fn main() {
-    let home = IpAddrKind::V4(127, 0, 0, 1); // cleaner gets rid of unneeded struct
-    let alt = IpAddr {
+    let _home = IpAddrKind::V4(127, 0, 0, 1); // cleaner gets rid of unneeded struct
+    let _alt = IpAddr {
         kind: IpAddrKind::VFake,
         address: String::from("127.0.0.1"),
     };
-    let some_number = Some(5);
+    let _some_number = Some(5);
     // Note Option::Some(int) will not add with a normal i32 Int.
     // let wont_work = 5 + some_number;
     // This is because null is bad, rust makes you convert from Some/None to a value, this way you can ensure that there will not be a null value when needed
-    let some_string = Some("A String");
-    let mut absent_number: Option<i32> = None;
+    let _some_string = Some("A String");
+    let mut _absent_number: Option<i32> = None;
 
     let m = Message::Write(String::from("hello"));
     m.call();
