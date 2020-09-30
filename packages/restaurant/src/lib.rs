@@ -1,4 +1,5 @@
 // #[cfg(test)]
+#![allow(dead_code)]
 mod front_of_house {
     pub mod hosting {
         pub fn add_to_waitlist() {
@@ -34,8 +35,8 @@ pub fn eat_at_restaurant() {
     meal.toast = String::from("Wheat");
     println!("I'd like {} toast please", meal.toast);
     println!("The season fruit is {}", meal.seasonal_fruits);
-    let order1 = second_of_house::Appetizer::Soup;
-    let order2 = second_of_house::Appetizer::Salad;
+    let _order1 = second_of_house::Appetizer::Soup;
+    let _order2 = second_of_house::Appetizer::Salad;
 }
 
 mod back_of_house {
