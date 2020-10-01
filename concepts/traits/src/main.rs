@@ -121,9 +121,33 @@ fn main() {
     }
     let novel = String::from("This is is the first sentece. This is the second sentence");
     let first_sentence = novel.split('.').next().expect("Could not find a sentence");
-    let struct_part = ImportantExcerpt {
+    let _struct_part = ImportantExcerpt {
         part: first_sentence,
     };
+    println!("{}", _struct_part.part);
+
+    {
+        let _test_static: &'static str = "Hello"; // stored in binary lifetime is always available
+                                                  // need to be careful because then the word can left dangling until invalidated
+    }
+    {
+        let str1 = "Hello";
+        let str2 = "World";
+        let longest = longest_with_an_announcement(str1, str2, "IMPORTANT");
+        println!("longest with an announcement: {}", longest);
+    }
+}
+
+fn longest_with_an_announcement<'a, T>(x: &'a str, y: &'a str, ann: T) -> &'a str
+where
+    T: Display,
+{
+    println!("Announcement: {}!", ann);
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
 }
 
 // Lifetime annotations in Function
@@ -145,6 +169,7 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 fn _longest_borked<'a>(x: &'a str, y: &'a str) -> &'a str {
     let test = String::from("This is the longest line");
     test.as_str();
+    let _ignore = y;
     /* ^^^^^^^^^^
         returns a value referencing data owned by the current function
         `result` is borrowed here
