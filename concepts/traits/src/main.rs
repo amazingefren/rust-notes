@@ -1,3 +1,4 @@
+#[allow(dead_code, unused)]
 pub trait Summary {
     fn read(&self) -> String;
     fn summarize_author(&self) -> String;
@@ -69,6 +70,10 @@ impl<T: Display + PartialOrd> Pair<T> {
     }
 }
 
+struct ImportantExcerpt<'a> {
+    part: &'a str,
+}
+
 fn main() {
     let tweet = Tweet {
         username: String::from("amazingefren"),
@@ -100,7 +105,25 @@ fn main() {
         let word2 = "World!";
         let longest_word = longest(word1, word2);
         println!("Longest Word: {}", longest_word);
+        let string1 = String::from("Long string is long");
+        {
+            let string2 = String::from("xyz");
+            let result = longest(string1.as_str(), string2.as_str());
+            println!("the longest string is {}", result);
+        }
+
+        let _result: &str;
+        {
+            let string2 = String::from("xyz");
+            _result = longest(string1.as_str(), string2.as_str());
+        } // this will fail, as string2 will not live long enough to print the result
+          // println!("result: {}", result);
     }
+    let novel = String::from("This is is the first sentece. This is the second sentence");
+    let first_sentence = novel.split('.').next().expect("Could not find a sentence");
+    let struct_part = ImportantExcerpt {
+        part: first_sentence,
+    };
 }
 
 // Lifetime annotations in Function
@@ -117,4 +140,15 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     } else {
         y
     }
+}
+
+fn _longest_borked<'a>(x: &'a str, y: &'a str) -> &'a str {
+    let test = String::from("This is the longest line");
+    test.as_str();
+    /* ^^^^^^^^^^
+        returns a value referencing data owned by the current function
+        `result` is borrowed here
+    */
+    // borked because return type of &'a and &str is not met
+    x // here to satisfy function return type
 }
