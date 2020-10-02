@@ -32,6 +32,7 @@ fn main() {
     }
 }
 
+#[allow(unused)]
 fn main_old() {
     // This is a comment
     println!("Guess the number!");

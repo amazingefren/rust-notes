@@ -7,6 +7,15 @@ fn main() {
     let intensity: u32 = rand::thread_rng().gen_range(1, 100);
     let random_number: u32 = rand::thread_rng().gen_range(1, 3);
     generate_workout(intensity, random_number);
+    let num1 = 4;
+    // closures read variables in scope
+    let equal_to_num1 = |z| z == num1;
+    let num2 = 4;
+    assert!(
+        equal_to_num1(num2),
+        "num2 does not match num1.... num1: {}",
+        num2
+    );
 }
 
 #[allow(unused)]
@@ -37,7 +46,11 @@ where
 
     fn value(&mut self, arg: u32) -> u32 {
         match self.value {
-            Some(v) => v,
+            Some(mut v) => {
+                v = (self.calculation)(arg);
+                self.value = Some(v);
+                v
+            }
             None => {
                 let v = (self.calculation)(arg);
                 self.value = Some(v);
@@ -74,5 +87,18 @@ fn generate_workout(x: u32, random_number: u32) {
         } else {
             println!("Today, run for {} minutes!", expensive_result.value(x));
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::Cacher;
+    #[test]
+    fn test_cacher() {
+        let mut c = Cacher::new(|a| a);
+        let v1 = c.value(1);
+        let v2 = c.value(2);
+        assert_eq!(1, v1);
+        assert_eq!(2, v2);
     }
 }
