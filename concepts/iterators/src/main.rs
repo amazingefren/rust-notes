@@ -21,6 +21,7 @@ struct Shoe {
     style: String,
 }
 
+#[allow(unused)]
 fn shoes_in_my_size(shoes: Vec<Shoe>, shoe_size: u32) -> Vec<Shoe> {
     shoes.into_iter().filter(|s| s.size == shoe_size).collect()
 }
@@ -28,6 +29,7 @@ fn shoes_in_my_size(shoes: Vec<Shoe>, shoe_size: u32) -> Vec<Shoe> {
 struct Counter {
     count: u8,
 }
+#[allow(unused)]
 impl Counter {
     fn new() -> Counter {
         Counter { count: 0 }
