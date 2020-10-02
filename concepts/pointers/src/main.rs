@@ -6,9 +6,29 @@
             * Large amount of data and want to transfer ownership to prevent duplicating/copying data
 */
 
+// RefCell RC<T>  is like a living room, theres a tv and people watching it, when the first person comes in, its on. when the last person leaves, it turns off.
+enum List {
+    Cons(i32, Rc<List>),
+    Nil,
+}
+
+use crate::List::{Cons, Nil};
+use std::rc::Rc;
+
 #[allow(unused)]
 fn main() {
-    println!("Hello World")
+    // let a = Cons(5, Box::new(Cons(10, Box::new(Nil))));
+    // let b = Cons(3, Box::new(a)); // a is moved into b, b owns a.
+    // let c = Cons(4, Box::new(a)); // by now, a has been moved
+    let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
+    println!("Count after creating a = {}", Rc::strong_count(&a));
+    let b = Cons(3, Rc::clone(&a));
+    println!("Count after creating b = {}", Rc::strong_count(&a));
+    {
+        let c = Cons(4, Rc::clone(&a));
+        println!("Count after creating c = {}", Rc::strong_count(&a));
+    }
+    println!("Count after C goes out of scope = {}", Rc::strong_count(&a));
 }
 
 #[allow(unused)]
@@ -83,16 +103,16 @@ fn hello(name: &str) {
 // }
 
 //good enum
-enum List {
-    Cons(i32, Box<List>), // providing box here, prevents List from being infinitely scalable
-    Nil,
-}
+// enum List {
+// Cons(i32, Box<List>), // providing box here, prevents List from being infinitely scalable
+// Nil,
+// }
 
-use crate::List::{Cons, Nil};
+// use crate::List::{Cons, Nil};
 
 #[allow(unused)]
 fn _old_main() {
     let b = Box::new(5); //i32 is stored on heap
     println!("b = {}", b);
-    let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
+    // let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
 }
