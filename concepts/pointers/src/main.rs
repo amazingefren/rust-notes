@@ -51,7 +51,7 @@ use std::cell::RefCell;
 use std::rc::Rc;
 
 #[allow(unused)]
-fn _RefCell_main() {
+fn _refcell_main() {
     let value = Rc::new(RefCell::new(5));
 
     let a = Rc::new(Cons1(Rc::clone(&value), Rc::new(Nil1)));
