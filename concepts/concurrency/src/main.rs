@@ -26,6 +26,7 @@ fn main() {
         *num = 6;
     }
     println!("m = {:?}", m);
+    thread_main();
 }
 
 #[allow(unused, dead_code)]
@@ -73,9 +74,9 @@ fn thread_main() {
         }
     });
 
-    handle.join().unwrap();
-    handle2.join().unwrap();
-    // handle.thread();
+    // handle.join().unwrap();
+    // handle2.join().unwrap();
+    handle.thread();
     for i in 1..30 {
         println!("Hi Number {} from main thread", i);
         thread::sleep(Duration::from_millis(100));

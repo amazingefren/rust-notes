@@ -166,6 +166,7 @@ fn destruct_enum() {
     }
 }
 
+#[allow(unused)]
 fn ignore_value(_: i32, y: i32) {
     struct Point {
         x: i32,
@@ -222,6 +223,7 @@ fn ignore_value(_: i32, y: i32) {
     }
 }
 
+#[allow(unused)]
 fn at_bindings() {
     enum Message {
         Hello { id: i32 },
